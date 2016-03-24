@@ -55,5 +55,3 @@ call([join(virtualenvs_path, project_name, "bin/pip"), "install", "-r",
 replace_djang_base(project_path, project_name)
 call([join(virtualenvs_path, project_name, "bin/python"), join(project_path, "manage.py"), "bower_install"])
 call([join(virtualenvs_path, project_name, "bin/python"), join(project_path, "manage.py"), "migrate"])
-call([join(virtualenvs_path, project_name, "bin/python"), join(project_path, "manage.py"), "runserver",
-      "0.0.0.0:8000"])
