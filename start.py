@@ -1,20 +1,59 @@
+from tempfile import mkstemp
+from shutil import move
+
 import os
+from os import remove, close
+
+from os import makedirs, rename
+
+from os.path import join, expanduser, isfile, exists
 from subprocess import call
 
-venvs = raw_input("Enter Virtual environments directory (default:~/venvs/): ") or "~/venv/"
+
+def replace_djang_base(path, project_name):
+    for dirname in os.listdir(path):
+        if isfile(join(path, dirname)):
+            replace(join(path, dirname), "django_base", project_name)
+        else:
+            replace_djang_base(join(path, dirname), project_name)
+
+
+def replace(file_path, pattern, subst):
+    # Create temp file
+    fh, abs_path = mkstemp()
+    with open(abs_path, 'w') as new_file:
+        with open(file_path) as old_file:
+            for line in old_file:
+                new_file.write(line.replace(pattern, subst))
+    close(fh)
+    # Remove original file
+    remove(file_path)
+    # Move new file
+    move(abs_path, file_path)
+
+
+virtualenvs_path = raw_input("Enter Virtual environments directory (default:~/venvs/): ") or "~/venv/"
 project_name = raw_input("Enter project name (default:nameless): ") or "nameless"
-venvs = os.path.expanduser(venvs)
-if not os.path.exists(venvs):
-    os.makedirs(venvs)
+virtualenvs_path = expanduser(virtualenvs_path)
+if not exists(virtualenvs_path):
+    makedirs(virtualenvs_path)
 
-call(["virtualenv", os.path.join(venvs, project_name)])
+call(["virtualenv", join(virtualenvs_path, project_name)])
 
-project_path = os.path.join(venvs, project_name, "project")
-if not os.path.exists(project_path):
-    os.makedirs(project_path)
+project_path = join(virtualenvs_path, project_name, "project")
+if not exists(project_path):
+    makedirs(project_path)
 call(["wget", "https://github.com/ahmadiga/django_base/archive/0.0.1.tar.gz"])
 call(["tar", "xvzf", "0.0.1.tar.gz", "-C", project_path])
 call(["rm", "0.0.1.tar.gz"])
 
-os.rename(os.path.join(project_path, "django_base-0.0.1"), os.path.join(project_path, project_name))
-project_path = os.path.join(project_path, project_name)
+rename(join(project_path, "django_base-0.0.1"), join(project_path, project_name))
+project_path = join(project_path, project_name)
+rename(join(project_path, "django_base"), join(project_path, project_name))
+call([join(virtualenvs_path, project_name, "bin/pip"), "install", "-r",
+      join(project_path, "requirements.txt")])
+replace_djang_base(project_path, project_name)
+call([join(virtualenvs_path, project_name, "bin/python"), join(project_path, "manage.py"), "bower_install"])
+call([join(virtualenvs_path, project_name, "bin/python"), join(project_path, "manage.py"), "migrate"])
+call([join(virtualenvs_path, project_name, "bin/python"), join(project_path, "manage.py"), "runserver",
+      "0.0.0.0:8000"])
