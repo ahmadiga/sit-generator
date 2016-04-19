@@ -34,7 +34,7 @@ def replace(file_path, pattern, subst):
 
 virtualenvs_path = "/"
 project_name = "sitbase"
-virtualenvs_path = expanduser(virtualenvs_path)
+#virtualenvs_path = expanduser(virtualenvs_path)
 if not exists(virtualenvs_path):
     makedirs(virtualenvs_path)
 
