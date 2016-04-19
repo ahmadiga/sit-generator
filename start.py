@@ -32,7 +32,7 @@ def replace(file_path, pattern, subst):
     move(abs_path, file_path)
 
 
-virtualenvs_path = "/venv/"
+virtualenvs_path = "/"
 project_name = "sitbase"
 virtualenvs_path = expanduser(virtualenvs_path)
 if not exists(virtualenvs_path):
