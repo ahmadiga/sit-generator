@@ -32,8 +32,8 @@ def replace(file_path, pattern, subst):
     move(abs_path, file_path)
 
 
-virtualenvs_path = raw_input("Enter Virtual environments directory (default:~/venvs/): ") or "~/venv/"
-project_name = raw_input("Enter project name (default:nameless): ") or "nameless"
+virtualenvs_path = "~/venv/"
+project_name = "sitbase"
 virtualenvs_path = expanduser(virtualenvs_path)
 if not exists(virtualenvs_path):
     makedirs(virtualenvs_path)
