@@ -43,11 +43,11 @@ call(["virtualenv", join(virtualenvs_path, project_name)])
 project_path = join(virtualenvs_path, project_name, "project")
 if not exists(project_path):
     makedirs(project_path)
-call(["wget", "https://github.com/ahmadiga/django_base/archive/0.0.1.tar.gz"])
-call(["tar", "xvzf", "0.0.1.tar.gz", "-C", project_path])
-call(["rm", "0.0.1.tar.gz"])
+call(["wget", "https://github.com/ahmadiga/django_base/archive/0.1.0.tar.gz"])
+call(["tar", "xvzf", "0.1.0.tar.gz", "-C", project_path])
+call(["rm", "0.1.0.tar.gz"])
 
-rename(join(project_path, "django_base-0.0.1"), join(project_path, project_name))
+rename(join(project_path, "django_base-0.1.0"), join(project_path, project_name))
 project_path = join(project_path, project_name)
 rename(join(project_path, "django_base"), join(project_path, project_name))
 call([join(virtualenvs_path, project_name, "bin/pip"), "install", "-r",
