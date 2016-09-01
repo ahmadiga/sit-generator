@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 #sudo apt-get update
-sudo brow python git npm -y
+sudo brew python git npm -y
 sudo pip install --upgrade pip
 sudo pip install virtualenv
 sudo npm install npm -g
