@@ -12,3 +12,4 @@ python start.py
 rm start.py
 rm start.sh
 echo "Thank me welak"
+
