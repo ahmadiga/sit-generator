@@ -1,12 +1,12 @@
 #!/usr/bin/env bash
 #sudo apt-get update
-sudo brew install python python git npm -y
-sudo pip install --upgrade pip
-sudo pip install virtualenv
-sudo npm install npm -g
-sudo npm install -g bower
-sudo gem update --system
-sudo gem install compass
+brew install python python git npm -y
+pip install --upgrade pip
+pip install virtualenv
+npm install npm -g
+npm install -g bower
+gem update --system
+gem install compass
 wget https://raw.githubusercontent.com/ahmadiga/sit-generator/master/start.py
 python start.py
 rm start.py
