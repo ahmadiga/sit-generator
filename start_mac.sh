@@ -10,6 +10,6 @@ gem install compass
 wget https://raw.githubusercontent.com/ahmadiga/sit-generator/master/start.py
 python start.py
 rm start.py
-rm start.sh
+rm start_mac.sh
 echo "Thank me welak"
 
